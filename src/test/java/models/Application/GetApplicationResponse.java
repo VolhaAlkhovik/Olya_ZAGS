@@ -1,13 +1,12 @@
 package models.Application;
 
+import java.util.List;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
-public class GetApplicationResponse  {
+public class GetApplicationResponse {
 
-    private Integer total;
-    private List<ApplicationData> data;
-    private String requestId;
+  private Integer total;
+  private List<ApplicationData> data;
+  private String requestId;
 }

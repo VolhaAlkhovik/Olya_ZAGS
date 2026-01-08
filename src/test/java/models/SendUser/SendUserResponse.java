@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class SendUserResponse {
 
-    private Integer applicantid;
-    private Integer applicationid;
-    private Integer citizenid;
-    private Integer merrigecertificateid;
+  private SendUser data;
+  private String requestId;
 }
