@@ -10,12 +10,12 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class RequestSpec {
 
-    public RequestSpecification requestSpecification() {
-        return new RequestSpecBuilder()
-                .setBaseUri("https://regoffice.senla.eu")
-                .setAuth(RestAssured.basic("user", "senlatest"))
-                .setContentType(ContentType.JSON)
-                .log(LogDetail.ALL)
-                .build();
-    }
+  public static RequestSpecification requestSpecification() {
+    return new RequestSpecBuilder()
+        .setBaseUri("https://regoffice.senla.eu")
+        .setAuth(RestAssured.basic("user", "senlatest"))
+        .setContentType(ContentType.JSON)
+        .log(LogDetail.ALL)
+        .build();
+  }
 }

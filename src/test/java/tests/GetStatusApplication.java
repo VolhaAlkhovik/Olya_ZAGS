@@ -1,22 +1,23 @@
 package tests;
 
-import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import base.BaseTest;
 import endpoints.Endpoints;
 import models.SendUser.SendUserRequestBody;
 import models.SendUser.SendUserResponse;
+import models.StatusAppl.GetStatusApplResponse;
 import org.junit.jupiter.api.Test;
 import specs.RequestSpec;
 import specs.ResponseSpec;
 import utils.RequestManager;
 
-public class SendUserRequest extends BaseTest {
+public class GetStatusApplication extends BaseTest {
+
+  private static int createdApplId;
 
   @Test
   public void sendUserRequest() {
-
     SendUserRequestBody request = new SendUserRequestBody();
     request.setMode("wedding");
     request.setPersonalLastName("Ivanov");
@@ -40,7 +41,7 @@ public class SendUserRequest extends BaseTest {
     request.setCitizenNumberOfPassport("JF48394");
     request.setCitizenAddress("Belgium");
 
-    SendUserResponse response =
+    SendUserResponse responseCreatedUser =
         RequestManager.postRequest(
             RequestSpec.requestSpecification(),
             ResponseSpec.responseSpecification(),
@@ -48,6 +49,22 @@ public class SendUserRequest extends BaseTest {
             request,
             SendUserResponse.class);
 
-    assertNotNull(response, "Ответ не должен быть null");
+    assertNotNull(responseCreatedUser, "Ответ не должены быть null");
+    createdApplId = responseCreatedUser.getData().getApplicationid();
+  }
+
+  @Test
+  public void getStatusApplication() {
+
+    GetStatusApplResponse response =
+        RequestManager.getRequest(
+            RequestSpec.requestSpecification(),
+            ResponseSpec.responseSpecification(),
+            Endpoints.GETSTATUSAPPLICATION,
+            "id",
+            createdApplId,
+            GetStatusApplResponse.class);
+
+    assertNotNull(response, "Ответ не должены быть null");
   }
 }

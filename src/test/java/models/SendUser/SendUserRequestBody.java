@@ -1,31 +1,56 @@
 package models.SendUser;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SendUserRequestBody {
 
-    private String mode;
-    private String personalLastName;
-    private String personalMiddleName;
-    private String personalPhoneNumber;
-    private String personalNumberOfPassport;
-    private String citizenLastName;
-    private String citizenFirstName;
-    private String citizenMiddleName;
-    private String citizenBirthDate;
-    private String citizenNumberOfPassport;
-    private String citizenGender;
-    private String dateOfMarriage;
-    private String newLastName;
-    private String anotherPersonLastName;
-    private String anotherPersonFirstName;
-    private String anotherPersonMiddleName;
-    private String birth_of_anotoherPerson;
-    private String anotherPersonPassport;
-    private String birth_place;
-    private String birth_mother;
-    private String birth_father;
-    private String death_dateOfDeath;
-    private String death_placeOfDeath;
+  private String mode;
+  private String personalLastName;
+  private String personalMiddleName;
+  private String personalFirstName;
+  private String personalPhoneNumber;
+  private String personalNumberOfPassport;
+  private String personalAddress;
+  private String citizenLastName;
+  private String citizenFirstName;
+  private String citizenMiddleName;
+  private String citizenBirthDate;
+  private String citizenNumberOfPassport;
+  private String citizenGender;
+  private String citizenAddress;
+  private String dateOfMarriage;
+  private String newLastName;
+  private String anotherPersonLastName;
+  private String anotherPersonFirstName;
+  private String anotherPersonMiddleName;
+
+  @JsonProperty("birth_of_anotoherPerson")
+  private String birthOfAnotherPerson;
+
+  private String anotherPersonPassport;
+
+  @JsonProperty("birth_place")
+  private String birthPlace;
+
+  @JsonProperty("birth_mother")
+  private String birthMother;
+
+  @JsonProperty("birth_father")
+  private String birthFather;
+
+  @JsonProperty("death_dateOfDeath")
+  private String deathDateOfDeath;
+
+  @JsonProperty("death_placeOfDeath")
+  private String deathPlaceOfDeath;
+
+  @JsonProperty("birth_grandma")
+  private String birthGrandma;
+
+  @JsonProperty("birth_grandpa")
+  private String birthGrandpa;
 }
