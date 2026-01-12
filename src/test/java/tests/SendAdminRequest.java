@@ -17,13 +17,14 @@ public class SendAdminRequest extends BaseTest {
   @Test
   public void sendAdminRequest() {
 
-    SendAdminRequestBody request = new SendAdminRequestBody();
-    request.setDateofbirth("2025-01-01");
-    request.setPersonalFirstName("Ivan");
-    request.setPersonalLastName("Ivanov");
-    request.setPersonalMiddleName("Petrovich");
-    request.setPersonalNumberOfPassport("HG231456");
-    request.setPersonalPhoneNumber("80251425358");
+    SendAdminRequestBody request = SendAdminRequestBody.builder()
+                    .dateofbirth("2025-01-01")
+                    .personalFirstName(faker.name().firstName())
+                    .personalLastName(faker.name().lastName())
+                    .personalMiddleName(faker.name().nameWithMiddle())
+                    .personalNumberOfPassport("HG231456")
+                    .personalPhoneNumber(faker.phoneNumber().phoneNumber())
+                    .build();
 
     SendAdminResponse response =
         RequestManager.postRequest(

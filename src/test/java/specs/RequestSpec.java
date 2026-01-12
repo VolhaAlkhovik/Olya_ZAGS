@@ -6,14 +6,15 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.experimental.UtilityClass;
+import utils.ConfigProperties;
 
 @UtilityClass
 public class RequestSpec {
 
   public static RequestSpecification requestSpecification() {
     return new RequestSpecBuilder()
-        .setBaseUri("https://regoffice.senla.eu")
-        .setAuth(RestAssured.basic("user", "senlatest"))
+        .setBaseUri(ConfigProperties.getBaseUri())
+        .setAuth(RestAssured.basic(ConfigProperties.getUsername(), ConfigProperties.getPass()))
         .setContentType(ContentType.JSON)
         .log(LogDetail.ALL)
         .build();
