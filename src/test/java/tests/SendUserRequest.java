@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import specs.RequestSpec;
 import specs.ResponseSpec;
 import utils.RequestManager;
+import org.assertj.core.api.SoftAssertions;
+
 
 public class SendUserRequest extends BaseTest {
 
@@ -24,10 +26,17 @@ public class SendUserRequest extends BaseTest {
         RequestManager.postRequest(
             RequestSpec.requestSpecification(),
             ResponseSpec.responseSpecification(),
-            Endpoints.SENDUSERREQUEST,
+            Endpoints.SEND_USER_REQUEST,
             body,
             SendUserResponse.class);
 
-    assertNotNull(response, "Ответ не должен быть null");
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(response).as("Response object").isNotNull();
+        soft.assertThat(response.getData()).as("Data block").isNotNull();
+        soft.assertThat(response.getData().getApplicantid()).isGreaterThan(0);
+        soft.assertThat(response.getData().getCitizenid()).isGreaterThan(0);
+        soft.assertThat(response.getData().getApplicationid()).isGreaterThan(0);
+        soft.assertThat(response.getData().getMerrigecertificateid()).isGreaterThan(0);
+        soft.assertAll();
   }
 }

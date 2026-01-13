@@ -17,30 +17,7 @@ import utils.RequestManager;
 public class RequestProcess extends BaseTest {
 
   private static int createdApplId;
-  private static int createdStaffId;
 
-  /* @Test
-    public void sendAdminRequest(){
-    SendAdminRequestBody request = new SendAdminRequestBody();
-      request.setDateofbirth("2025-01-01");
-      request.setPersonalFirstName("Ivan");
-      request.setPersonalLastName("Ivanov");
-      request.setPersonalMiddleName("Petrovich");
-      request.setPersonalNumberOfPassport("HG231456");
-      request.setPersonalPhoneNumber("80251425358");
-
-    SendAdminResponse responseAdminRequest =
-            RequestManager.postRequest(
-                    RequestSpec.requestSpecification(),
-                    ResponseSpec.responseSpecification(),
-                    Endpoints.SENDADMINREQUEST,
-                    request,
-                    SendAdminResponse.class);
-
-    assertNotNull(responseAdminRequest, "Ответ не должен быть null");
-    createdStaffId = responseAdminRequest.getData().getStaffid();
-  }
-  */
   @Test
   public void requestprocess() {
 
@@ -50,11 +27,13 @@ public class RequestProcess extends BaseTest {
         RequestManager.postRequest(
             RequestSpec.requestSpecification(),
             ResponseSpec.responseSpecification(),
-            Endpoints.SENDUSERREQUEST,
+            Endpoints.SEND_USER_REQUEST,
             body,
             SendUserResponse.class);
 
     assertNotNull(responseCreatedUser, "Ответ не должены быть null");
+    assertNotNull(responseCreatedUser.getData(),"Data не должно быть null");
+    assertTrue(responseCreatedUser.getData().getApplicationid() > 0, "ApplicationId должен быть > 0");
     createdApplId = responseCreatedUser.getData().getApplicationid();
 
     RequestProcessBody requestProcess = new RequestProcessBody();
@@ -64,7 +43,7 @@ public class RequestProcess extends BaseTest {
         RequestManager.postRequest(
             RequestSpec.requestSpecification(),
             ResponseSpec.responseSpecification(),
-            Endpoints.REQUESTPROCESS,
+            Endpoints.REQUEST_PROCESS,
             requestProcess,
             RequestProcessResponse.class);
 

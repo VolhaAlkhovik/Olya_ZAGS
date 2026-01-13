@@ -8,6 +8,7 @@ import endpoints.Endpoints;
 import models.SendUser.SendUserRequestBody;
 import models.SendUser.SendUserResponse;
 import models.StatusAppl.GetStatusApplResponse;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import specs.RequestSpec;
 import specs.ResponseSpec;
@@ -25,26 +26,33 @@ public class GetStatusApplication extends BaseTest {
         RequestManager.postRequest(
             RequestSpec.requestSpecification(),
             ResponseSpec.responseSpecification(),
-            Endpoints.SENDUSERREQUEST,
+            Endpoints.SEND_USER_REQUEST,
             body,
             SendUserResponse.class);
 
     assertNotNull(responseCreatedUser, "Ответ не должены быть null");
+    assertNotNull(responseCreatedUser.getData(),"Data не должно быть null");
+    assertTrue(responseCreatedUser.getData().getApplicationid() > 0, "ApplicationId должен быть > 0");
     createdApplId = responseCreatedUser.getData().getApplicationid();
   }
 
-  @Test
   public void getStatusApplication() {
 
     GetStatusApplResponse response =
         RequestManager.getRequest(
             RequestSpec.requestSpecification(),
             ResponseSpec.responseSpecification(),
-            Endpoints.GETSTATUSAPPLICATION,
+            Endpoints.GET_STATUS_APPLICATION,
             "id",
             createdApplId,
             GetStatusApplResponse.class);
 
-    assertNotNull(response, "Ответ не должены быть null");
+    SoftAssertions soft = new SoftAssertions();
+    soft.assertThat(response).isNotNull();
+    soft.assertThat(response.getData()).isNotNull();
+    soft.assertThat(response.getData().getKindofapplication()).isEqualTo("Получение свидетельства о браке");
+    soft.assertThat(response.getData().getStatusofapplication()).isIn("under consideration", "approved", "rejected");
+    soft.assertThat(response.getData().getDateofapplication()).matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z");
+    soft.assertAll();
   }
 }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import base.BaseTest;
 import endpoints.Endpoints;
+import io.restassured.response.Response;
 import models.SendAdmin.SendAdminRequestBody;
 import models.SendAdmin.SendAdminResponse;
 import org.junit.jupiter.api.Test;
@@ -21,18 +22,20 @@ public class SendAdminRequest extends BaseTest {
                     .dateofbirth("2025-01-01")
                     .personalFirstName(faker.name().firstName())
                     .personalLastName(faker.name().lastName())
-                    .personalMiddleName(faker.name().nameWithMiddle())
-                    .personalNumberOfPassport("HG231456")
-                    .personalPhoneNumber(faker.phoneNumber().phoneNumber())
+                    .personalMiddleName(faker.name().firstName())
+                    .personalNumberOfPassport("GF323842")
+                    .personalPhoneNumber("2365988")
                     .build();
 
     SendAdminResponse response =
+
         RequestManager.postRequest(
             RequestSpec.requestSpecification(),
             ResponseSpec.responseSpecification(),
-            Endpoints.SENDADMINREQUEST,
+            Endpoints.SEND_ADMIN_REQUEST,
             request,
             SendAdminResponse.class);
+
 
     assertNotNull(response, "Ответ не должен быть null");
     assertNotNull(response.getRequestId(), "RequestID не должен быть null");
