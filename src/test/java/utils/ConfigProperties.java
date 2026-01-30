@@ -27,4 +27,16 @@ public class ConfigProperties {
   public static String getPass() {
     return PROPERTIES.getProperty("auth.pass");
   }
+
+  public static String getDBUrl() {
+    return PROPERTIES.getProperty("DBurl");
+  }
+
+  public static String getDBUser() {
+    return PROPERTIES.getProperty("DBuser");
+  }
+
+  public static String getDBPassword() {
+    return PROPERTIES.getProperty("DBpass");
+  }
 }
