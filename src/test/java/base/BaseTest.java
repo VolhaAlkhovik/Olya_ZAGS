@@ -1,13 +1,18 @@
 package base;
-import net.datafaker.Faker;
+
 import static io.restassured.RestAssured.*;
 
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 import utils.ConfigProperties;
 
 public class BaseTest {
 
-  protected Faker faker = new Faker();
+  private final Faker faker = new Faker();
+
+  protected final Faker getFaker() {
+    return faker;
+  }
 
   @BeforeAll
   public static void setUp() {
