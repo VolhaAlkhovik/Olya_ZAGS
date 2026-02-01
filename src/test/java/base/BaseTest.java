@@ -1,19 +1,22 @@
 package base;
 
-import utils.ConfigProperties;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
-
 import static io.restassured.RestAssured.*;
 
-
+import net.datafaker.Faker;
+import org.junit.jupiter.api.BeforeAll;
+import utils.ConfigProperties;
 
 public class BaseTest {
 
-    @BeforeAll
-    public static void setUp(){
-        baseURI = ConfigProperties.getBaseUri();
-        authentication = RestAssured.basic(ConfigProperties.getUsername(), ConfigProperties.getPass());
-    }
+  private final Faker faker = new Faker();
 
+  protected final Faker getFaker() {
+    return faker;
+  }
+
+  @BeforeAll
+  public static void setUp() {
+    baseURI = ConfigProperties.getBaseUri();
+    authentication = basic(ConfigProperties.getUsername(), ConfigProperties.getPass());
+  }
 }
