@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import base.BaseTest;
 import builder.SendUserRequestBodyFactory;
 import endpoints.Endpoints;
+import java.sql.SQLException;
 import models.RequestProcess.RequestProcessBody;
 import models.RequestProcess.RequestProcessResponse;
 import models.SendUser.SendUserRequestBody;
@@ -14,12 +15,12 @@ import specs.RequestSpec;
 import specs.ResponseSpec;
 import utils.RequestManager;
 
-public class RequestProcess extends BaseTest {
+public class RequestProcessTest extends BaseTest {
 
   private static int createdApplId;
 
   @Test
-  public void requestprocess() {
+  public void requestprocess() throws SQLException {
 
     SendUserRequestBody body = SendUserRequestBodyFactory.weddingRequest();
 
@@ -32,8 +33,9 @@ public class RequestProcess extends BaseTest {
             SendUserResponse.class);
 
     assertNotNull(responseCreatedUser, "Ответ не должены быть null");
-    assertNotNull(responseCreatedUser.getData(),"Data не должно быть null");
-    assertTrue(responseCreatedUser.getData().getApplicationid() > 0, "ApplicationId должен быть > 0");
+    assertNotNull(responseCreatedUser.getData(), "Data не должно быть null");
+    assertTrue(
+        responseCreatedUser.getData().getApplicationid() > 0, "ApplicationId должен быть > 0");
     createdApplId = responseCreatedUser.getData().getApplicationid();
 
     RequestProcessBody requestProcess = new RequestProcessBody();
