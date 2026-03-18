@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class SendAdminData {
 
-    private int staffid;
+  private int staffid;
 }
